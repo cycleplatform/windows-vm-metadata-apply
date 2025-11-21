@@ -12,7 +12,6 @@ A PowerShell script for applying a Linux-style `network-config` cloud-init file 
 
 This script is designed for environments where Windows VMs are provisioned using cloud-init–style metadata, such as Cycle.io. It reads the `network-config` file from the VM's config-drive and applies all network settings—IP addresses, routes, DNS, MTU, and NIC renaming—directly to Windows networking.
 
----
 
 ## Running Inside a Cycle Windows VM
 

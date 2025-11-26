@@ -49,8 +49,8 @@ jobs:
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cycle-helpers-iso
-          path: cycle-helpers.iso
+          name: cycle-utils-iso
+          path: cycle-utils-iso
           retention-days: 0  # permanent
 
       - name: Create GitHub Release
@@ -58,6 +58,6 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           name: Release ${{ github.event.inputs.version }}
-          files: cycle-helpers.iso
+          files: cycle-utils-iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

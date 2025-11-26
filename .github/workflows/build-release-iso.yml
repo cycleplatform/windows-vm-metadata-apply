@@ -32,32 +32,36 @@ jobs:
 
       - name: Install xorriso
         run: sudo apt-get update && sudo apt-get install -y xorriso
+
       - name: Create ISO image
         run: |
-            mkdir iso-content
+          mkdir iso-content
 
-            # Include all PS1 files
-            find . -maxdepth 1 -name "*.ps1" -exec cp {} iso-content/ \;
+          # Include all PS1 files in repo root
+          find . -maxdepth 1 -name "*.ps1" -exec cp {} iso-content/ \;
 
-            cp version.txt iso-content/
+          # Include the version file
+          cp version.txt iso-content/
 
-            xorriso -as mkisofs \
+          xorriso -as mkisofs \
             -V "cycle-utils-${{ github.event.inputs.version }}" \
             -J -R \
             -o cycle-utils.iso \
             iso-content
+
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v4
         with:
           name: cycle-utils-iso
-          path: cycle-utils-iso
-          retention-days: 0  # permanent
+          path: cycle-utils.iso
+          # you can omit this to use repo default, or set a number of days
+          # retention-days: 90
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.version }}
           name: Release ${{ github.event.inputs.version }}
-          files: cycle-utils-iso
+          files: cycle-utils.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -30,6 +30,8 @@ jobs:
           git commit -m "Release ${{ github.event.inputs.version }}" || echo "No changes to commit"
           git push
 
+      - name: Install xorriso
+        run: sudo apt-get update && sudo apt-get install -y xorriso
       - name: Create ISO image
         run: |
           mkdir iso-content
